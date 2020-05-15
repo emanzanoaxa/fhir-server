@@ -13,7 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using Microsoft.Health.Core;
 using Microsoft.Health.Core.Internal;
 using Microsoft.Health.Fhir.Core.Configs;
 using Microsoft.Health.Fhir.Core.Features.Operations;
@@ -412,6 +411,7 @@ namespace Microsoft.Health.Fhir.Core.UnitTests.Features.Operations.Export
                                     "Patient",
                                     new RawResource("data", Core.Models.FhirResourceFormat.Json),
                                     null,
+                                    null,
                                     DateTimeOffset.MinValue,
                                     false,
                                     null,
@@ -459,6 +459,7 @@ namespace Microsoft.Health.Fhir.Core.UnitTests.Features.Operations.Export
                                     "1",
                                     "Patient",
                                     new RawResource("data", Core.Models.FhirResourceFormat.Json),
+                                    null,
                                     null,
                                     DateTimeOffset.MinValue,
                                     false,
@@ -535,6 +536,7 @@ namespace Microsoft.Health.Fhir.Core.UnitTests.Features.Operations.Export
                                     "1",
                                     "Patient",
                                     new RawResource("data", Core.Models.FhirResourceFormat.Json),
+                                    null,
                                     null,
                                     DateTimeOffset.MinValue,
                                     false,

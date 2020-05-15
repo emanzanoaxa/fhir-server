@@ -11,6 +11,8 @@ namespace Microsoft.Health.Fhir.Core.Features.Persistence
 
         public const string RawResource = "rawResource";
 
+        public const string JsonResource = "jsonResource";
+
         public const string IsDeleted = "isDeleted";
 
         public const string IsHistory = "isHistory";

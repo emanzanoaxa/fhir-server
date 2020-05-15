@@ -183,7 +183,7 @@ namespace Microsoft.Health.Fhir.SqlServer.Features.Search
 
                     while (await reader.ReadAsync(cancellationToken))
                     {
-                        (short resourceTypeId, string resourceId, int version, bool isDeleted, long resourceSurrogateId, string requestMethod, bool isMatch, Stream rawResourceStream) = reader.ReadRow(
+                        (short resourceTypeId, string resourceId, int version, bool isDeleted, long resourceSurrogateId, string requestMethod, bool isMatch, Stream rawResourceStream, string jsonResource) = reader.ReadRow(
                             VLatest.Resource.ResourceTypeId,
                             VLatest.Resource.ResourceId,
                             VLatest.Resource.Version,
@@ -191,7 +191,8 @@ namespace Microsoft.Health.Fhir.SqlServer.Features.Search
                             VLatest.Resource.ResourceSurrogateId,
                             VLatest.Resource.RequestMethod,
                             _isMatch,
-                            VLatest.Resource.RawResource);
+                            VLatest.Resource.RawResource,
+                            VLatest.Resource.JsonResource);
 
                         // If we get to this point, we know there are more results so we need a continuation token
                         // Additionally, this resource shouldn't be included in the results
@@ -223,6 +224,7 @@ namespace Microsoft.Health.Fhir.SqlServer.Features.Search
                                 version.ToString(CultureInfo.InvariantCulture),
                                 _model.GetResourceTypeName(resourceTypeId),
                                 new RawResource(rawResource, FhirResourceFormat.Json),
+                                rawResource,
                                 new ResourceRequest(requestMethod),
                                 new DateTimeOffset(ResourceSurrogateIdHelper.ResourceSurrogateIdToLastUpdated(resourceSurrogateId), TimeSpan.Zero),
                                 isDeleted,

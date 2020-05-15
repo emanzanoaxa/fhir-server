@@ -78,6 +78,7 @@ namespace Microsoft.Health.Fhir.Core.UnitTests.Features.Operations.Export
                 _resource.ToResourceElement(),
                 rawResource,
                 null,
+                null,
                 false,
                 null,
                 null,

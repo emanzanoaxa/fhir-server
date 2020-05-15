@@ -22,6 +22,7 @@ namespace Microsoft.Health.Fhir.CosmosDb.Features.Storage
                   resource.Version,
                   resource.ResourceTypeName,
                   resource.RawResource,
+                  resource.JsonResource,
                   resource.Request,
                   resource.LastModified,
                   resource.IsDeleted,
@@ -37,6 +38,7 @@ namespace Microsoft.Health.Fhir.CosmosDb.Features.Storage
             string versionId,
             string resourceTypeName,
             RawResource rawResource,
+            string jsonResource,
             ResourceRequest request,
             DateTimeOffset lastModified,
             bool deleted,
@@ -44,7 +46,7 @@ namespace Microsoft.Health.Fhir.CosmosDb.Features.Storage
             IReadOnlyCollection<SearchIndexEntry> searchIndices,
             CompartmentIndices compartmentIndices,
             IReadOnlyCollection<KeyValuePair<string, string>> lastModifiedClaims)
-            : base(resourceId, versionId, resourceTypeName, rawResource, request, lastModified, deleted, searchIndices, compartmentIndices, lastModifiedClaims)
+            : base(resourceId, versionId, resourceTypeName, rawResource, jsonResource, request, lastModified, deleted, searchIndices, compartmentIndices, lastModifiedClaims)
         {
             IsHistory = history;
         }

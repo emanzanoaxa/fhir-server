@@ -182,7 +182,8 @@ CREATE TABLE dbo.Resource
     ResourceSurrogateId bigint NOT NULL,
     IsDeleted bit NOT NULL,
     RequestMethod varchar(10) NULL,
-    RawResource varbinary(max) NOT NULL
+    RawResource varbinary(max) NOT NULL,
+    JsonResource nvarchar(max) NOT NULL
 )
 
 CREATE UNIQUE CLUSTERED INDEX IXC_Resource ON dbo.Resource

@@ -12,7 +12,6 @@ using Microsoft.Health.Fhir.Core.Exceptions;
 using Microsoft.Health.Fhir.Core.Extensions;
 using Microsoft.Health.Fhir.Core.Features.Persistence;
 using Microsoft.Health.Fhir.Core.Features.Resources;
-using Microsoft.Health.Fhir.Core.Features.Routing;
 using Microsoft.Health.Fhir.Core.Features.Search;
 using Microsoft.Health.Fhir.Core.Models;
 using Microsoft.Health.Fhir.Tests.Common;
@@ -147,6 +146,7 @@ namespace Microsoft.Health.Fhir.Core.UnitTests.Features.Resources
                    "1",
                    resourceType,
                    new RawResource("data", FhirResourceFormat.Json),
+                   null,
                    null,
                    DateTimeOffset.MinValue,
                    false,

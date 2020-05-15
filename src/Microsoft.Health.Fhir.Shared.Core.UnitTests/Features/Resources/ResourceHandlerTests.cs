@@ -382,6 +382,7 @@ namespace Microsoft.Health.Fhir.Core.UnitTests.Features.Resources
             return new ResourceWrapper(
                 resource,
                 _rawResourceFactory.Create(resource),
+                null,
                 new ResourceRequest(HttpMethod.Post, "http://fhir"),
                 isDeleted,
                 null,

@@ -113,6 +113,7 @@ namespace Microsoft.Health.Fhir.SqlServer.Features.Storage
                     keepHistory: keepHistory,
                     requestMethod: resource.Request.Method,
                     rawResource: stream,
+                    jsonResource: resource.RawResource.Data,
                     tableValuedParameters: _upsertResourceTvpGenerator.Generate(resourceMetadata));
 
                 try
@@ -206,6 +207,7 @@ namespace Microsoft.Health.Fhir.SqlServer.Features.Storage
                             version.ToString(CultureInfo.InvariantCulture),
                             key.ResourceType,
                             new RawResource(rawResource, FhirResourceFormat.Json),
+                            rawResource,
                             null,
                             new DateTimeOffset(ResourceSurrogateIdHelper.ResourceSurrogateIdToLastUpdated(resourceSurrogateId), TimeSpan.Zero),
                             isDeleted,

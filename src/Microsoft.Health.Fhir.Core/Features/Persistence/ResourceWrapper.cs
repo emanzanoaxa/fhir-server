@@ -18,6 +18,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Persistence
         public ResourceWrapper(
             ResourceElement resource,
             RawResource rawResource,
+            string jsonResource,
             ResourceRequest request,
             bool deleted,
             IReadOnlyCollection<SearchIndexEntry> searchIndices,
@@ -28,6 +29,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Persistence
                  resource.VersionId,
                  resource.InstanceType,
                  rawResource,
+                 jsonResource,
                  request,
                  resource.LastUpdated ?? Clock.UtcNow,
                  deleted,
@@ -42,6 +44,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Persistence
             string versionId,
             string resourceTypeName,
             RawResource rawResource,
+            string jsonResource,
             ResourceRequest request,
             DateTimeOffset lastModified,
             bool deleted,
@@ -52,11 +55,13 @@ namespace Microsoft.Health.Fhir.Core.Features.Persistence
             EnsureArg.IsNotNullOrEmpty(resourceId, nameof(resourceId));
             EnsureArg.IsNotNullOrEmpty(resourceTypeName, nameof(resourceTypeName));
             EnsureArg.IsNotNull(rawResource, nameof(rawResource));
+            EnsureArg.IsNotNull(jsonResource, nameof(jsonResource));
 
             ResourceId = resourceId;
             Version = versionId;
             ResourceTypeName = resourceTypeName;
             RawResource = rawResource;
+            JsonResource = jsonResource;
             Request = request;
             IsDeleted = deleted;
             LastModified = lastModified;
@@ -75,6 +80,9 @@ namespace Microsoft.Health.Fhir.Core.Features.Persistence
 
         [JsonProperty(KnownResourceWrapperProperties.RawResource)]
         public RawResource RawResource { get; protected set; }
+
+        [JsonProperty(KnownResourceWrapperProperties.JsonResource)]
+        public string JsonResource { get; protected set; }
 
         [JsonProperty(KnownResourceWrapperProperties.Request)]
         public ResourceRequest Request { get; protected set; }
