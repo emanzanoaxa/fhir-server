@@ -1343,6 +1343,7 @@ CREATE PROCEDURE dbo.UpsertResource
     @keepHistory bit,
     @requestMethod varchar(10),
     @rawResource varbinary(max),
+    @jsonResource nvarchar(max),
     @resourceWriteClaims dbo.ResourceWriteClaimTableType_1 READONLY,
     @compartmentAssignments dbo.CompartmentAssignmentTableType_1 READONLY,
     @referenceSearchParams dbo.ReferenceSearchParamTableType_1 READONLY,
@@ -1544,9 +1545,9 @@ AS
     DECLARE @resourceSurrogateId bigint = @baseResourceSurrogateId + (NEXT VALUE FOR ResourceSurrogateIdUniquifierSequence)
 
     INSERT INTO dbo.Resource
-        (ResourceTypeId, ResourceId, Version, IsHistory, ResourceSurrogateId, IsDeleted, RequestMethod, RawResource)
+        (ResourceTypeId, ResourceId, Version, IsHistory, ResourceSurrogateId, IsDeleted, RequestMethod, RawResource, JsonResource)
     VALUES
-        (@resourceTypeId, @resourceId, @version, 0, @resourceSurrogateId, @isDeleted, @requestMethod, @rawResource)
+        (@resourceTypeId, @resourceId, @version, 0, @resourceSurrogateId, @isDeleted, @requestMethod, @rawResource, @jsonResource)
 
     INSERT INTO dbo.ResourceWriteClaim
         (ResourceSurrogateId, ClaimTypeId, ClaimValue)
@@ -1658,12 +1659,12 @@ AS
     SET NOCOUNT ON
 
     IF (@version IS NULL) BEGIN
-        SELECT ResourceSurrogateId, Version, IsDeleted, IsHistory, RawResource
+        SELECT ResourceSurrogateId, Version, IsDeleted, IsHistory, RawResource, JsonResource
         FROM dbo.Resource
         WHERE ResourceTypeId = @resourceTypeId AND ResourceId = @resourceId AND IsHistory = 0
     END
     ELSE BEGIN
-        SELECT ResourceSurrogateId, Version, IsDeleted, IsHistory, RawResource
+        SELECT ResourceSurrogateId, Version, IsDeleted, IsHistory, RawResource, JsonResource
         FROM dbo.Resource
         WHERE ResourceTypeId = @resourceTypeId AND ResourceId = @resourceId AND Version = @version
     END
